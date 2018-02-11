@@ -3,6 +3,8 @@ function setup() {
   }
   
   function draw() {
+      strokeWeight(3);
+      ellipse(windowWidth/2, windowHeight/2, 550, 550);
   }
   
   function windowResized() {
