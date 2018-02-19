@@ -19,7 +19,7 @@ function setup() {
 
     startSec = map(second(), 0, 59, 0, 360);
     startMin = map(minute(), 0, 59, 0, 360);
-    startHour = map(hour(), 0, 23, 0, 12);
+    startHour = map(hour(), 0, 12, 0, 360);
   }
   
   function draw() {
@@ -68,6 +68,8 @@ function setup() {
       pop();
 
       line(0,0,0,0);
+
+      //console.log(startHour);
   }
   
   function windowResized() {
