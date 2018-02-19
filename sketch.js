@@ -1,17 +1,16 @@
-var angle = 0;
-var angleTwo = 0;
-var angleThree = 0;
-
-var minRotate 
+var secRotate 
+var minRotate;
 var hourRotate;
-var minInterval = 59000;
-var hourInterval = minInterval*60;
+
+var secInterval = 59000;
+var minInterval = secInterval*60;
+var hourInterval = minInterval*12;
+
 var timer = 0;
 
 var startSec;
 var startMin;
-
-var sec = map(second(), 0, 60, 0, 360 );
+var startHour;
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
@@ -20,14 +19,15 @@ function setup() {
 
     startSec = map(second(), 0, 59, 0, 360);
     startMin = map(minute(), 0, 59, 0, 360);
+    startHour = map(hour(), 0, 23, 0, 12);
   }
   
   function draw() {
       background(255);
 
-      angle = angle + 5;
-      angleTwo = angleTwo + 3;
-      angleThree = angleThree + 1;
+      secRotate = map(timer - millis(), 0, secInterval, 360, 0);
+      minRotate = map(timer - millis(), 0, minInterval, 360, 0);
+      hourRotate = map(timer - millis(), 0, hourInterval, 360, 0);
 
       //master circle
       strokeWeight(3);
@@ -36,18 +36,13 @@ function setup() {
 
       translate(windowWidth/2, windowHeight/2);
 
-      minRotate = map(timer - millis(), 0, minInterval, 360, 0);
-      hourRotate = map(timer - millis(), 0, minInterval * 60, 360, 0);
-
-      //rotate(startMin);
-
       if (millis() >= timer) { // reset timer when the millis() catch up
         timer = floor(millis() + hourInterval); // floor() rounds a number down, so we always start on the beat (i.e. 2000, 3000, etc...)
       }
 
       push(); //yellow - seconds circle
       rotate(startSec); //rotates circle to current second
-      rotate(minRotate); //rotates circle every second
+      rotate(secRotate); //rotates circle every second
     
       strokeWeight(0);
       fill(255,255,0,100);
@@ -56,7 +51,7 @@ function setup() {
 
       push(); //blue - minutes circle
       rotate(startMin); //rotates circle to current minute
-      rotate(hourRotate); 
+      rotate(minRotate); 
 
       strokeWeight(0);
       fill(0,201,255,100,);
@@ -64,15 +59,15 @@ function setup() {
       pop();
       
       push(); //red - hours circle
-      //rotate();
+      rotate(startHour);
+      rotate(hourRotate);
+
       strokeWeight(0);
       fill(255,0,0,100)
       ellipse(0,0 - 137, 275, 275)
       pop();
 
       line(0,0,0,0);
-      
-      //console.log(second());
   }
   
   function windowResized() {
