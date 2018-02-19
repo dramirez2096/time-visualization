@@ -37,6 +37,8 @@ function setup() {
       translate(windowWidth/2, windowHeight/2);
 
       minRotate = map(timer - millis(), 0, minInterval, 360, 0);
+      hourRotate = map(timer - millis(), 0, minInterval * 60, 360, 0);
+
       //rotate(startMin);
 
       if (millis() >= timer) { // reset timer when the millis() catch up
@@ -44,8 +46,8 @@ function setup() {
       }
 
       push(); //yellow - seconds circle
-      rotate(startSec);
-      rotate(minRotate);
+      rotate(startSec); //rotates circle to current second
+      rotate(minRotate); //rotates circle every second
     
       strokeWeight(0);
       fill(255,255,0,100);
@@ -53,7 +55,8 @@ function setup() {
       pop();
 
       push(); //blue - minutes circle
-      rotate(hourRotate);
+      rotate(startMin); //rotates circle to current minute
+      rotate(hourRotate); 
 
       strokeWeight(0);
       fill(0,201,255,100,);
@@ -61,7 +64,7 @@ function setup() {
       pop();
       
       push(); //red - hours circle
-      //rotate(angleThree);
+      //rotate();
       strokeWeight(0);
       fill(255,0,0,100)
       ellipse(0,0 - 137, 275, 275)
