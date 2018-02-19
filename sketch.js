@@ -7,6 +7,8 @@ var hourRotate;
 var minInterval = 59000;
 var hourInterval = minInterval*60;
 var timer = 0;
+
+var startSec;
 var startMin;
 
 var sec = map(second(), 0, 60, 0, 360 );
@@ -15,6 +17,8 @@ function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     angleMode(DEGREES);
     timer = millis();
+
+    startSec = map(second(), 0, 59, 0, 360);
     startMin = map(minute(), 0, 59, 0, 360);
   }
   
@@ -33,31 +37,31 @@ function setup() {
       translate(windowWidth/2, windowHeight/2);
 
       minRotate = map(timer - millis(), 0, minInterval, 360, 0);
+      //rotate(startMin);
 
       if (millis() >= timer) { // reset timer when the millis() catch up
         timer = floor(millis() + hourInterval); // floor() rounds a number down, so we always start on the beat (i.e. 2000, 3000, etc...)
       }
 
-      push();
+      push(); //yellow - seconds circle
+      rotate(startSec);
       rotate(minRotate);
-
+    
       strokeWeight(0);
-      //yellow - seconds circle
       fill(255,255,0,100);
       ellipse(0,0 - 50, 100, 100, 50);
       pop();
 
-      push();
+      push(); //blue - minutes circle
       rotate(hourRotate);
-      //blue - minutes circle
+
       strokeWeight(0);
       fill(0,201,255,100,);
       ellipse(0,0 - 100, 200, 200);
       pop();
       
-      push();
-      rotate(angleThree);
-      //red - hours circle
+      push(); //red - hours circle
+      //rotate(angleThree);
       strokeWeight(0);
       fill(255,0,0,100)
       ellipse(0,0 - 137, 275, 275)
